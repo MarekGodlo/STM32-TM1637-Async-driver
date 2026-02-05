@@ -4,7 +4,7 @@
 
 #include "TM1637.h"
 
-extern TIM_HandleTypeDef htim6;
+//extern TIM_HandleTypeDef htim6;
 
 // 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, DP
 const uint8_t TM1637_Digits[] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F, 0x80};
@@ -154,7 +154,7 @@ bool TM1637_WriteByte(uint8_t data)
  */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	if (htim == &htim6) {
+	if (htim == config.htim) {
 		processState();
 	}
 }
@@ -171,7 +171,7 @@ static bool sendData(volatile TM1637_Buffer* buffer, TM1637_Tx* data)
 
 	if (current_state == TM1637_IDLE) {
 		current_state = TM1637_START;
-		HAL_TIM_Base_Start_IT(&htim6);
+		HAL_TIM_Base_Start_IT(config.htim);
 	}
 
 	return respond;
@@ -338,7 +338,7 @@ static void processState()
 			current_state = TM1637_IDLE;
 
 			if (isBufferEmpty(&tx_buffer)) {
-				HAL_TIM_Base_Stop_IT(&htim6);
+				HAL_TIM_Base_Stop_IT(config.htim);
 			}
 
 			break;

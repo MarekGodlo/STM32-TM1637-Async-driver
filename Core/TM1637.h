@@ -14,11 +14,11 @@
 
 //#define CMD 0x40
 
-#define DIO_PIN DIO_Pin
-#define DIO_PORT DIO_GPIO_Port
+//#define DIO_PIN DIO_Pin
+//#define DIO_PORT DIO_GPIO_Port
 
-#define CLK_PIN CLK_Pin
-#define CLK_PORT CLK_GPIO_Port
+//#define CLK_PIN CLK_Pin
+//#define CLK_PORT CLK_GPIO_Port
 
 // Configuration
 #define BUFFER_SIZE 50
